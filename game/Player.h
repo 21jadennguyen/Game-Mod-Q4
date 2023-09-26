@@ -1154,6 +1154,8 @@ private:
 	stateResult_t			State_Legs_Land					( const stateParms_t& parms );
 	stateResult_t			State_Legs_Dead					( const stateParms_t& parms );
 	
+	public:
+		int minHealth;
  	CLASS_STATES_PROTOTYPE( idPlayer );
 };
 

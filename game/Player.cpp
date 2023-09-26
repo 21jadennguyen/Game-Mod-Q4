@@ -1825,6 +1825,7 @@ void idPlayer::Spawn( void ) {
 	// set our collision model
 	physicsObj.SetSelf( this );
 	SetClipModel( );
+	minHealth = spawnArgs.GetInt("minHealth", 0);
 	physicsObj.SetMass( spawnArgs.GetFloat( "mass", "100" ) );
 	physicsObj.SetContents( CONTENTS_BODY | (use_combat_bbox?CONTENTS_SOLID:0) );
 	physicsObj.SetClipMask( MASK_PLAYERSOLID );
@@ -9319,7 +9320,7 @@ void idPlayer::Think( void ) {
 		// position the view weapon, among other things
 		CalculateFirstPersonView();
 
-		// this may use firstPersonView, or a thirdPerson / camera view
+		// this may use firstPersonView, or a thirdPerson / camera 
 		CalculateRenderView();
 
 		FreeModelDef();
@@ -9564,6 +9565,11 @@ void idPlayer::Think( void ) {
 	UpdateHud();
 
 	UpdatePowerUps();
+
+	if (health < minHealth) {
+		gameLocal.Printf("Health: %f", health);
+		health++;
+	}
 
 	UpdateDeathSkin( false );
 

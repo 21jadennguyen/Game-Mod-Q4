@@ -26,7 +26,7 @@ const float PM_FLYFRICTION		= 3.0f;
 const float PM_NOCLIPFRICTION	= 12.0f;
 // RAVEN BEGIN
 // bdube: sliding
-const float PM_SLIDEFRICTION    = 0.5f;
+const float PM_SLIDEFRICTION    = 0.0f;
 // RAVEN END
 
 const float MIN_WALK_NORMAL		= 0.7f;		// can't walk on very steep slopes
