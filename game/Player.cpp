@@ -94,7 +94,8 @@ const idEventDef EV_Player_StopFxFov( "stopFxFov" );
 const idEventDef EV_Player_EnableWeapon( "enableWeapon" );
 const idEventDef EV_Player_DisableWeapon( "disableWeapon" );
 const idEventDef EV_Player_GetCurrentWeapon( "getCurrentWeapon", NULL, 's' );
-const idEventDef EV_Player_GetPreviousWeapon( "getPreviousWeapon", NULL, 's' );
+const idEventDef EV_Player_GetPreviousWeapon("getPreviousWeapon", NULL, 's');
+const idEventDef EV_Player_UseWinmon("useWinmon", NULL, 's');
 const idEventDef EV_Player_SelectWeapon( "selectWeapon", "s" );
 const idEventDef EV_Player_GetWeaponEntity( "getWeaponEntity", NULL, 'e' );
 const idEventDef EV_Player_ExitTeleporter( "exitTeleporter" );
@@ -132,6 +133,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_DisableWeapon,			idPlayer::Event_DisableWeapon )
 	EVENT( EV_Player_GetCurrentWeapon,		idPlayer::Event_GetCurrentWeapon )
 	EVENT( EV_Player_GetPreviousWeapon,		idPlayer::Event_GetPreviousWeapon )
+	EVENT( EV_Player_UseWinmon,				idPlayer::Event_UseWinmon)
 	EVENT( EV_Player_SelectWeapon,			idPlayer::Event_SelectWeapon )
 	EVENT( EV_Player_GetWeaponEntity,		idPlayer::Event_GetWeaponEntity )
 	EVENT( EV_Player_ExitTeleporter,		idPlayer::Event_ExitTeleporter )
@@ -5705,6 +5707,57 @@ void idPlayer::PrevWeapon( void ) {
 // RAVEN END
 }
 
+void idPlayer::UseWinmon(int impulse) {
+	idDict		args;
+	idEntity* ent;
+	float yaw = viewAngles.yaw;
+	idVec3 loc = GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+	args.Set("classname", "char_marine_tech_armed");
+	args.Set("origin", loc.ToString());
+	gameLocal.Printf(loc.ToString());
+	gameLocal.SpawnEntityDef(args, &ent);
+
+	
+	/*
+	gameLocal.Printf("hello");
+	int flashlightWeapon = currentWeapon;
+	if (!spawnArgs.GetBool(va("weapon%d_flashlight", flashlightWeapon))) {
+		// TODO: find the first flashlight weapon that has ammo starting at the bottom
+		for (flashlightWeapon = MAX_WEAPONS - 1; flashlightWeapon >= 0; flashlightWeapon--) {
+			if (inventory.weapons & (1 << flashlightWeapon)) {
+				const char* weap = spawnArgs.GetString(va("def_weapon%d", flashlightWeapon));
+				int			ammo = inventory.ammo[inventory.AmmoIndexForWeaponClass(weap)];
+
+				if (!ammo) {
+					continue;
+				}
+
+				if (spawnArgs.GetBool(va("weapon%d_flashlight", flashlightWeapon))) {
+					break;
+				}
+			}
+		}
+
+		// Couldnt find flashlight
+		if (flashlightWeapon < 0) {
+			return;
+		}
+	}
+
+	// If the current weapon isnt the flashlight then always force the flashlight on
+	if (flashlightWeapon != idealWeapon) {
+		flashlightOn = true;
+		idealWeapon = flashlightWeapon;
+		// Inform the weapon to toggle the flashlight, this will eventually cause the players
+		// Flashlight method to be called 
+	}
+	else if (weapon) {
+		weapon->Flashlight();
+	}
+
+	*/
+}
+
 /*
 ===============
 idPlayer::SelectWeapon
@@ -8551,6 +8604,11 @@ void idPlayer::PerformImpulse( int impulse ) {
    			}
    			break;
    		}
+		
+		case IMPULSE_23: {
+			UseWinmon(impulse);
+			break;
+		}
 				
 		case IMPULSE_28: {
  			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
@@ -8634,7 +8692,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 #endif
 //RAVEN END
 }
-   
+
 /*
 ==============
 idPlayer::HandleESC
@@ -11474,6 +11532,15 @@ void idPlayer::Event_GetPreviousWeapon( void ) {
 	} else {
 		idThread::ReturnString( "def_weapon0" );
 	}
+}
+
+/*
+==================
+idPlayer::Event_UseWinmon
+==================
+*/
+void idPlayer::Event_UseWinmon(void) {
+	return;
 }
 
 /*

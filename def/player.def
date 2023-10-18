@@ -634,6 +634,9 @@ entityDef player_marine
 	"copy_joint shoulders"					"shoulders"
 	"copy_joint legs_channel"				"legs_channel"
 
+	// winmon slots
+	"def_winmon1"						"winmon_bulbasaur"
+
 	// weapon slots
 	"def_weapon0"						"weapon_blaster"
 	"weapon0_best"						"1"			// whether weapon should be chosen when out of ammo

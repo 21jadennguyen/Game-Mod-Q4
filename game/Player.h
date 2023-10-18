@@ -21,6 +21,7 @@ extern const idEventDef EV_Player_SetViewAngles;
 extern const idEventDef EV_Player_EnableWeapon;
 extern const idEventDef EV_Player_DisableWeapon;
 extern const idEventDef EV_Player_ExitTeleporter;
+extern const idEventDef EV_Player_UseWinmon;
 extern const idEventDef EV_Player_SelectWeapon;
 extern const idEventDef EV_Player_Freeze;
 extern const idEventDef EV_SpectatorTouch;
@@ -35,6 +36,7 @@ const int	FOCUS_TIME					= 200;
 const int	FOCUS_GUI_TIME				= 300;
 const int	FOCUS_USABLE_TIME			= 100;
 
+const int	MAX_WINMON					= 10;
 const int	MAX_WEAPONS					= 16;
 const int	MAX_AMMO					= 16;
 const int	CARRYOVER_FLAG_AMMO			= 0x40000000;
@@ -593,6 +595,7 @@ public:
 	void					NextBestWeapon				( void );
 	void					PrevWeapon					( void );
 	void					LastWeapon					( void );
+	void					UseWinmon					( int num );
  	void					SelectWeapon				( int num, bool force );
 	void					SelectWeapon				( const char * );
 	void					AddProjectilesFired			( int count );
@@ -1072,6 +1075,7 @@ private:
 	void					Event_DisableWeapon			( void );
 	void					Event_GetCurrentWeapon		( void );
 	void					Event_GetPreviousWeapon		( void );
+	void					Event_UseWinmon				( void );
 	void					Event_SelectWeapon			( const char *weaponName );
 	void					Event_GetWeaponEntity		( void );
 	void					Event_ExitTeleporter		( void );
