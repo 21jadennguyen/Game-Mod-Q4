@@ -478,8 +478,12 @@ public:
  	bool					IsCoverValid					( void ) const;
 	virtual bool			IsCrouching						( void ) const;
 
+	virtual	void			Damage							(idEntity* inflictor, idEntity* attacker, const idVec3& dir, const char* damageDefName, const float damageScale, const int location);
+
 
 public:
+
+	bool					isWinmon;
 
 	idLinkList<idAI>		simpleThinkNode;
 

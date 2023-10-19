@@ -288,6 +288,11 @@ public:
 
 	class idPlayerView		playerView;			// handles damage kicks and effects
 
+	int						winmonLevels[10];
+	int						winmonNum;
+	idEntity*				activeWinmon;
+	bool					winmonOut;
+	int						winmonKillTime;
 	bool					alreadyDidTeamAnnouncerSound;
 	bool					noclip;
 	bool					godmode;
@@ -595,6 +600,9 @@ public:
 	void					NextBestWeapon				( void );
 	void					PrevWeapon					( void );
 	void					LastWeapon					( void );
+	void					NextWinmon					( void );
+	void					PrevWinmon					( void );
+	void					LevelWinmon					( void );
 	void					UseWinmon					( int num );
  	void					SelectWeapon				( int num, bool force );
 	void					SelectWeapon				( const char * );

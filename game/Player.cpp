@@ -1079,10 +1079,15 @@ idPlayer::idPlayer
 ==============
 */
 idPlayer::idPlayer() {
-	memset( &usercmd, 0, sizeof( usercmd ) );
+	memset( &usercmd, 0, sizeof( usercmd ) + sizeof( int ) + sizeof( idEntity* ) + sizeof( bool ) );
 
 	alreadyDidTeamAnnouncerSound = false;
-
+		
+	memset(winmonLevels, 0, sizeof(int) * 10);
+	activeWinmon			= NULL;
+	winmonNum				= 0;
+	winmonOut				= false;
+	winmonKillTime			= 0;
 	doInitWeapon			= false;
 	noclip					= false;
 	godmode					= false;
@@ -1500,6 +1505,8 @@ idPlayer::Init
 void idPlayer::Init( void ) {
 	const char			*value;
 	
+	winmonNum				= 0;
+	winmonOut				= false;
 	noclip					= false;
 	godmode					= false;
 	godmodeDamage			= 0;
@@ -5707,16 +5714,44 @@ void idPlayer::PrevWeapon( void ) {
 // RAVEN END
 }
 
+void idPlayer::LevelWinmon() {
+	winmonLevels[winmonNum] += 1;
+	return;
+}
+
+void idPlayer::NextWinmon() {
+	gameLocal.Printf("Winmon num before: %d\n", winmonNum);
+	winmonNum = (winmonNum + 1) % 10;
+	gameLocal.Printf("Winmon num after: %d\n", winmonNum);
+	return;
+}
+
+void idPlayer::PrevWinmon() {
+	gameLocal.Printf("Winmon num before: %d\n", winmonNum);
+	winmonNum = (winmonNum - 1) % 10;
+	gameLocal.Printf("Winmon num after: %d\n", winmonNum);
+	return;
+}
+
 void idPlayer::UseWinmon(int impulse) {
-	idDict		args;
+	if (winmonOut) {
+		return;
+	}
+
+	winmonOut = true;
+	idDict	args;
 	idEntity* ent;
 	float yaw = viewAngles.yaw;
 	idVec3 loc = GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
-	args.Set("classname", "char_marine_tech_armed");
+	args.Set("classname", "char_marine_acid");
 	args.Set("origin", loc.ToString());
+	args.Set("npc_name", "Pikachu");
+	args.SetBool("isWinmon", true);
 	gameLocal.Printf(loc.ToString());
+	gameLocal.Printf("\n");
 	gameLocal.SpawnEntityDef(args, &ent);
-
+	activeWinmon = ent;
+	winmonKillTime = gameLocal.time + SEC2MS(3);
 	
 	/*
 	gameLocal.Printf("hello");
@@ -8609,7 +8644,17 @@ void idPlayer::PerformImpulse( int impulse ) {
 			UseWinmon(impulse);
 			break;
 		}
-				
+
+		case IMPULSE_24: {
+			PrevWinmon();
+			break;
+		}
+
+		case IMPULSE_25: {
+			NextWinmon();
+			break;
+		}
+
 		case IMPULSE_28: {
  			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
  				gameLocal.mpGame.CastVote( gameLocal.localClientNum, true );
@@ -9625,7 +9670,6 @@ void idPlayer::Think( void ) {
 	UpdatePowerUps();
 
 	if (health < minHealth) {
-		gameLocal.Printf("Health: %f", health);
 		health++;
 	}
 
@@ -9707,6 +9751,21 @@ void idPlayer::Think( void ) {
 		inBuyZone = false;
 
 	inBuyZonePrev = false;
+
+	// kill winmon at killtime
+	/*
+	int fun = gameLocal.time;
+	if (fun % 10 == 0) {
+		gameLocal.Printf("curr: %d, end: %d", fun, winmonKillTime);
+	}
+	*/
+
+	if (winmonOut && gameLocal.time >= winmonKillTime) {
+		activeWinmon->Damage(activeWinmon, activeWinmon, idVec3(0, 0, 0), "damage_suicide", 1.0f, INVALID_JOINT);
+		activeWinmon = NULL;
+		winmonOut = false;
+	}
+
 }
 
 /*

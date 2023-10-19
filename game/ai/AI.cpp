@@ -618,6 +618,7 @@ void idAI::Spawn( void ) {
 
 	spawnArgs.GetInt(	"team",					"1",		team );
 	spawnArgs.GetInt(	"rank",					"0",		rank );
+	spawnArgs.GetBool(	"isWinmon",				"false",	isWinmon);
 
 	animPrefix = spawnArgs.GetString ( "animPrefix", "" );
 
@@ -1663,6 +1664,9 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 
 		aiManager.AnnounceKill ( this, attacker, inflictor );
 		aiManager.AnnounceDeath ( this, attacker );
+		if (attacker == gameLocal.GetLocalPlayer()->activeWinmon) {
+			gameLocal.GetLocalPlayer()->LevelWinmon();
+		}
    	}
 
 	if ( attacker && attacker->IsType( idActor::GetClassType() ) ) {
@@ -2473,6 +2477,11 @@ bool idAI::Attack ( const char* attackName, jointHandle_t joint, idEntity* targe
 		gameLocal.Error ( "could not find attack entityDef 'def_attack_%s (%s)' on AI entity %s", attackName, spawnArgs.GetString ( va("def_attack_%s", attackName ) ), GetName ( ) );
 	}
 
+	/*if ( isWinmon ) {
+		gameLocal.Printf("winmon vomit");
+		return ( Attack("vomit", joint, target) );
+	}*/
+
 	// Melee Attack?
 	if ( spawnArgs.GetBool ( va("attack_%s_melee", attackName ), "0" ) ) {
 		return AttackMelee ( attackName, attackDict );
@@ -2493,7 +2502,7 @@ idProjectile* idAI::AttackRanged (
 	jointHandle_t	joint, 
 	idEntity*		target, 
 	const idVec3&	pushVelocity 
-	)	 
+	)
 {
 	float				attack_accuracy;
 	float				attack_cone;
@@ -2511,7 +2520,7 @@ idProjectile* idAI::AttackRanged (
 	idProjectile*		lastProjectile;
 	
 	lastProjectile		= NULL;
-	
+
 	// Generic attack properties
 	attack_accuracy		= spawnArgs.GetFloat ( va("attack_%s_accuracy", attackName ), "7" );
 	attack_cone			= spawnArgs.GetFloat ( va("attack_%s_cone", attackName ), "75" );
@@ -5148,4 +5157,9 @@ bool idAI::CheckDeathCausesMissionFailure( void )
 		}
 	}
 	return false;
+}
+
+void idAI::Damage(idEntity* inflictor, idEntity* attacker, const idVec3& dir, const char* damageDefName, const float damageScale, const int location)
+{
+	idActor::Damage(inflictor, attacker, dir, damageDefName, damageScale, location);
 }
