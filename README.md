@@ -9,24 +9,24 @@ Use O to summon your Winmon and use the chosen move.
 
 ### Common Deliverables
 1. A shortcut to auto launch INTO your mod
-	+set fs_game boiling
+	* +set fs_game boiling
 2. An in-game HELP screen explaining how to use the features of your mod
-	hold tab, replaced objectives screen with in-game HELP screen
+	* hold tab, replaced objectives screen with in-game HELP screen
 3. Updated in game UI to showcase one or more of your features
-	includes winmon name, winmon move, and winmon level when switching winmon or move.
+	* includes winmon name, winmon move, and winmon level when switching winmon or move.
 4. Modified Landing Page for the Mod
-	winball cursor with winnoh background
+	* winball cursor with winnoh background
 5. A README.md file for your project / repo
-	this
+	* this
 
 ### Personal Deliverables
 1. 10 Winmon
-	Warizard, Walakazam, Wikachu, Wolem, Wempoleon, Wamoswine, Wuk, Wagneton, Wexeggutor, Wobro
+	* Warizard, Walakazam, Wikachu, Wolem, Wempoleon, Wamoswine, Wuk, Wagneton, Wexeggutor, Wobro
 2. Winmon respond to commands from the trainer
-	Choose move before sending out winmon
+	* Choose move before sending out winmon
 3. 4 Winmon abilities per winmon
-	Every winmon has 4 different moves.
+	* Every winmon has 4 different moves. (ex: Wember, Wamethrower, Wolar Beam, Wrotect, etc.)
 4. 5 dodge abilities
-	NOT COMPLETED
+	* NOT COMPLETED
 5. Level system
-	After killing enemies, winmon level up. This increases amount of time winmon is active per attack.
+	* After killing enemies, winmon level up. This increases amount of time winmon is active per attack.
