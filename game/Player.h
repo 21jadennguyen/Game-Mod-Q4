@@ -290,6 +290,7 @@ public:
 
 	int						winmonLevels[10];
 	int						winmonNum;
+	int						winmonMove;
 	idEntity*				activeWinmon;
 	bool					winmonOut;
 	int						winmonKillTime;
@@ -602,7 +603,10 @@ public:
 	void					LastWeapon					( void );
 	void					NextWinmon					( void );
 	void					PrevWinmon					( void );
+	void					NextWinmonMove				( void );
+	void					PrevWinmonMove				( void );
 	void					LevelWinmon					( void );
+	void					SpawnDummy					( void );
 	void					UseWinmon					( int num );
  	void					SelectWeapon				( int num, bool force );
 	void					SelectWeapon				( const char * );

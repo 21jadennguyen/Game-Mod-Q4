@@ -1079,7 +1079,7 @@ idPlayer::idPlayer
 ==============
 */
 idPlayer::idPlayer() {
-	memset( &usercmd, 0, sizeof( usercmd ) + sizeof( int ) + sizeof( idEntity* ) + sizeof( bool ) );
+	memset( &usercmd, 0, sizeof( usercmd ) + sizeof( int ) + sizeof( idEntity* ) + sizeof( bool ) + sizeof( int ));
 
 	alreadyDidTeamAnnouncerSound = false;
 		
@@ -1087,6 +1087,7 @@ idPlayer::idPlayer() {
 	activeWinmon			= NULL;
 	winmonNum				= 0;
 	winmonOut				= false;
+	winmonMove				= 0;
 	winmonKillTime			= 0;
 	doInitWeapon			= false;
 	noclip					= false;
@@ -3442,6 +3443,204 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 
 	//_hud->HandleNamedEvent( "updateArmorHealthAir" );
 
+	switch (winmonNum) {
+		case 0:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: Wember");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: Wamethrower");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: Wolarbeam");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+			}
+			break;
+		case 1:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: Wybeam");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: Wychic");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: WarkPulse");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+				}
+			break;
+		case 2:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: Whunderbolt");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: Wischarge");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: Wyperbeam");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+			}
+			break;
+		case 3:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: Wudshot");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: WearthPower");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: WudBomb");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+			}
+			break;
+		case 4:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: Wydropump");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: Wurf");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: WlashCannon");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+			}
+			break;
+		case 5:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: WiceShard");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: Wavalanche");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: Wudshot");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+			}
+			break;
+		case 6:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: Wacid");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: WacidSpray");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: WearthPower");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+			}
+			break;
+		case 7:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: Whunderbolt");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: Wischarge");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: WlashCannon");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+			}
+			break;
+		case 8:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: WolarBeam");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: Wybeam");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: WeggBomb");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+			}
+			break;
+		case 9:
+			switch (winmonMove) {
+				case 0:
+					_hud->SetStateString("winmon_move", "Move: Wybeam");
+					break;
+				case 1:
+					_hud->SetStateString("winmon_move", "Move: Wychic");
+					break;
+				case 2:
+					_hud->SetStateString("winmon_move", "Move: Wydropump");
+					break;
+				case 3:
+					_hud->SetStateString("winmon_move", "Move: Wrotect");
+					break;
+				}
+			break;
+	}
+
+	switch (winmonNum) {
+		case 0:
+			_hud->SetStateString("winmon_name", "Winmon 1: Warizard");
+			break;
+		case 1:
+			_hud->SetStateString("winmon_name", "Winmon 2: Walakazam");
+			break;
+		case 2:
+			_hud->SetStateString("winmon_name", "Winmon 3: Wikachu");
+			break;
+		case 3:
+			_hud->SetStateString("winmon_name", "Winmon 4: Wolem");
+			break;
+		case 4:
+			_hud->SetStateString("winmon_name", "Winmon 5: Wempoleon");
+			break;
+		case 5:
+			_hud->SetStateString("winmon_name", "Winmon 6: Wamoswine");
+			break;
+		case 6:
+			_hud->SetStateString("winmon_name", "Winmon 7: Wuk");
+			break;
+		case 7:
+			_hud->SetStateString("winmon_name", "Winmon 8: Wagneton");
+			break;
+		case 8:
+			_hud->SetStateString("winmon_name", "Winmon 9: Wexeggutor");
+			break;
+		case 9:
+			_hud->SetStateString("winmon_name", "Winmon 10: Wobro");
+			break;
+	}
+
+	_hud->SetStateString("winmon_level", va("Level: %d", winmonLevels[winmonNum]+1));
+
 	if ( weapon ) {
 		UpdateHudAmmo( _hud );
 	}
@@ -5715,43 +5914,262 @@ void idPlayer::PrevWeapon( void ) {
 }
 
 void idPlayer::LevelWinmon() {
+	gameLocal.Printf("Winmon level before: %d\n", winmonLevels[winmonNum]);
 	winmonLevels[winmonNum] += 1;
+	gameLocal.Printf("Winmon level after: %d\n", winmonLevels[winmonNum]);
 	return;
 }
 
+
+
 void idPlayer::NextWinmon() {
 	gameLocal.Printf("Winmon num before: %d\n", winmonNum);
-	winmonNum = (winmonNum + 1) % 10;
+	winmonNum = (winmonNum + 1 + 10) % 10;
 	gameLocal.Printf("Winmon num after: %d\n", winmonNum);
 	return;
 }
 
 void idPlayer::PrevWinmon() {
 	gameLocal.Printf("Winmon num before: %d\n", winmonNum);
-	winmonNum = (winmonNum - 1) % 10;
+	winmonNum = (winmonNum - 1 + 10) % 10;
 	gameLocal.Printf("Winmon num after: %d\n", winmonNum);
 	return;
 }
 
-void idPlayer::UseWinmon(int impulse) {
+void idPlayer::PrevWinmonMove() {
+	gameLocal.Printf("Winmon move before: %d\n", winmonMove);
+	winmonMove = (winmonMove - 1 + 4) % 4;
+	gameLocal.Printf("Winmon move after: %d\n", winmonMove);
+	return;
+}
+
+void idPlayer::NextWinmonMove() {
+	gameLocal.Printf("Winmon move before: %d\n", winmonMove);
+	winmonMove = (winmonMove + 1 + 4) % 4;
+	gameLocal.Printf("Winmon move after: %d\n", winmonMove);
+	return;
+}
+
+void idPlayer::SpawnDummy() {
+	idDict	args;
+	idEntity* ent;
+	float yaw = viewAngles.yaw;
+	idVec3 loc = GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 5);
+	args.Set("classname", "monster_strogg_marine");
+	args.Set("origin", loc.ToString());
+
+	gameLocal.Printf("Spawned dude");
+	gameLocal.SpawnEntityDef(args, &ent);
+}
+
+void idPlayer::UseWinmon(int move) {
 	if (winmonOut) {
 		return;
 	}
-
+	
 	winmonOut = true;
 	idDict	args;
 	idEntity* ent;
 	float yaw = viewAngles.yaw;
-	idVec3 loc = GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
-	args.Set("classname", "char_marine_acid");
+	idVec3 loc = GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 5);
+
+	switch (winmonNum) {
+		case 0:
+			args.Set("npc_name", "Warizard");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_orange_napalm");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_orange_napalmspray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_orange_greenbeam");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_orange_protect");
+					break;
+			}
+			break;
+		case 1:
+			args.Set("npc_name", "Walakazam");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_yellow_pinkbeam");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_yellow_pinkspray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_yellow_blackspray");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_yellow_protect");
+					break;
+			}
+			break;
+		case 2:
+			args.Set("npc_name", "Wikachu");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_yellow_lightning");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_yellow_lightningspray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_yellow_whitebeam");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_yellow_protect");
+					break;
+			}
+			break;
+		case 3:
+			args.Set("npc_name", "Wolem");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_brown_brownbeam");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_brown_brownspray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_brown_grenade");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_brown_protect");
+					break;
+			}
+			break;
+		case 4:
+			args.Set("npc_name", "Wempoleon");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_blue_bluebeam");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_blue_bluespray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_blue_graybeam");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_blue_protect");
+					break;
+			}
+			break;
+		case 5:
+			args.Set("npc_name", "Wamoswine");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_brown_lightbluebeam");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_brown_lightbluespray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_brown_brownbeam");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_brown_protect");
+					break;
+			}
+			break;
+		case 6:
+			args.Set("npc_name", "Wuk");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_purple_acid");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_purple_acidspray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_purple_brownspray");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_purple_protect");
+					break;
+			}
+			break;
+		case 7:
+			args.Set("npc_name", "Wagneton");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_gray_lightning");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_gray_lightningspray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_gray_graybeam");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_brown_protect");
+					break;
+			}
+			break;
+		case 8:
+			args.Set("npc_name", "Wexeggutor");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_green_greenbeam");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_green_pinkbeam");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_green_grenade");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_green_protect");
+					break;
+			}
+			break;
+		case 9:
+			args.Set("npc_name", "Wobro");
+			switch (winmonMove) {
+				case 0:
+					args.Set("classname", "char_marine_pink_pinkbeam");
+					break;
+				case 1:
+					args.Set("classname", "char_marine_pink_pinkspray");
+					break;
+				case 2:
+					args.Set("classname", "char_marine_pink_bluebeam");
+					break;
+				case 3:
+					godmode = true;
+					args.Set("classname", "char_marine_pink_protect");
+					break;
+			}
+			break;
+	}
+
 	args.Set("origin", loc.ToString());
-	args.Set("npc_name", "Pikachu");
 	args.SetBool("isWinmon", true);
-	gameLocal.Printf(loc.ToString());
-	gameLocal.Printf("\n");
 	gameLocal.SpawnEntityDef(args, &ent);
 	activeWinmon = ent;
-	winmonKillTime = gameLocal.time + SEC2MS(3);
+
+	float moveTime = 0;
+	if (winmonMove == 3) {
+		moveTime = 1 + winmonLevels[winmonNum];
+	}
+	else {
+		moveTime = 3 + winmonLevels[winmonNum] * 0.2f;
+	}
+
+	winmonKillTime = gameLocal.time + SEC2MS(moveTime);
 	
 	/*
 	gameLocal.Printf("hello");
@@ -8583,6 +9001,10 @@ void idPlayer::PerformImpulse( int impulse ) {
 			}
 			break;
 		}
+		case IMPULSE_16: {
+			SpawnDummy();
+			break;
+		}
 		case IMPULSE_17: {
  			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
  				gameLocal.mpGame.ToggleReady( );
@@ -8655,6 +9077,17 @@ void idPlayer::PerformImpulse( int impulse ) {
 			break;
 		}
 
+		case IMPULSE_26: {
+			PrevWinmonMove();
+			break;
+		}
+
+		case IMPULSE_27: {
+			NextWinmonMove();
+			break;
+		}
+
+
 		case IMPULSE_28: {
  			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
  				gameLocal.mpGame.CastVote( gameLocal.localClientNum, true );
@@ -8685,7 +9118,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		case IMPULSE_108:	break; // Unused
 		case IMPULSE_109:	AttemptToBuyItem( "weapon_napalmgun" );				break;
 		case IMPULSE_110:	/* AttemptToBuyItem( "weapon_dmg" );*/				break;
-		case IMPULSE_111:	break; // Unused
+		case IMPULSE_111:	break;
 		case IMPULSE_112:	break; // Unused
 		case IMPULSE_113:	break; // Unused
 		case IMPULSE_114:	break; // Unused
@@ -9761,9 +10194,10 @@ void idPlayer::Think( void ) {
 	*/
 
 	if (winmonOut && gameLocal.time >= winmonKillTime) {
-		activeWinmon->Damage(activeWinmon, activeWinmon, idVec3(0, 0, 0), "damage_suicide", 1.0f, INVALID_JOINT);
+		activeWinmon->Damage(activeWinmon, activeWinmon, idVec3(0, 0, 0), "damage_suicide", 100.0f, INVALID_JOINT);
 		activeWinmon = NULL;
 		winmonOut = false;
+		godmode = false;
 	}
 
 }

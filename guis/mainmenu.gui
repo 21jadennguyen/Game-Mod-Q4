@@ -19902,7 +19902,7 @@ windowDef Desktop
 			}
 
 			onAction {
-				consoleCMD "map game/airdefense1" ;
+				consoleCMD "map game/convoy1" ;
 				
 				set "cmd" "play main_menu_selection" ;
 			}

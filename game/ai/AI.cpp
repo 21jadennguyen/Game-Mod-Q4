@@ -1664,7 +1664,7 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 
 		aiManager.AnnounceKill ( this, attacker, inflictor );
 		aiManager.AnnounceDeath ( this, attacker );
-		if (attacker == gameLocal.GetLocalPlayer()->activeWinmon) {
+		if (attacker == gameLocal.GetLocalPlayer()->activeWinmon && inflictor != attacker) {
 			gameLocal.GetLocalPlayer()->LevelWinmon();
 		}
    	}
