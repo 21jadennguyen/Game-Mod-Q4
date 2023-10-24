@@ -4007,7 +4007,7 @@ entityDef char_marine_purple_acid
 
 entityDef char_marine_purple_acidspray
 {
-	"inherit"									"char_marine_lightbluespray"
+	"inherit"									"char_marine_acidspray"
 	"model"										"model_char_marinepurple"
 }
 

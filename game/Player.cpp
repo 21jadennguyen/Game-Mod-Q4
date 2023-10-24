@@ -6114,7 +6114,7 @@ void idPlayer::UseWinmon(int move) {
 					break;
 				case 3:
 					godmode = true;
-					args.Set("classname", "char_marine_brown_protect");
+					args.Set("classname", "char_marine_gray_protect");
 					break;
 			}
 			break;
